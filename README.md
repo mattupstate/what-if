@@ -30,7 +30,7 @@ django model classes do not exist and instead the model classes are defined in t
 You'll need a running instance of MongoDB for the application to work. The application 
 in this git repository is configured to connect to an instance of MongoDB on the local 
 computer/server. Thus, you'll need to install MongoDB on your computer or the server 
-the applicaiton will run on. There is a [great tutorial}(http://library.linode.com/databases/mongodb/ubuntu-10.04-lucid)
+the applicaiton will run on. There is a [great tutorial](http://library.linode.com/databases/mongodb/ubuntu-10.04-lucid)
  on how to install and configure MongoDB for Linux on Linode's website.
 
 
