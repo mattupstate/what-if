@@ -4,7 +4,7 @@ What If... is, primarily, a game consisting of a series of linear quizzes. Each 
 consists of set of tokens and a series of yes or no questions that affect each token
 by adding or subtracting a numerical value to them. What If... is also a coding 
 exercise using Python, Django and MongoDB. The coding exercise consisted of building
-a CMS/Administration to add games, tokens, and questions.
+a CMS/Administration area and a presentation UI for users to play the games.
 
 ## Python Dependencies
 
@@ -17,16 +17,17 @@ libraries:
 - [mongoengine](http://mongoengine.org/)
 
 If you don't have the dependencies, install them using [easy_install](http://packages.python.org/distribute/easy_install.html)
-or [pip](http://www.pip-installer.org/en/latest/index.html).
-
-Additionally, checkout using [virtualenv](http://www.virtualenv.org/en/latest/index.html) 
+or [pip](http://www.pip-installer.org/en/latest/index.html). Additionally, checkout using [virtualenv](http://www.virtualenv.org/en/latest/index.html) 
 to manage varying installations and versions of Python and libraries.
 
 ## MongoDB
 
-Additionally, you'll need a running instance of MongoDB for the application to work. 
-The application in this git repository is configured to connect to an instance of 
-MongoDB on the local computer/server.
+As mentioned above, the application is built using [MongoDB](http://www.mongodb.org/). 
+You'll need a running instance of MongoDB for the application to work. The application 
+in this git repository is configured to connect to an instance of MongoDB on the local 
+computer/server. Thus, you'll need to install MongoDB on your computer or the server 
+the applicaiton will run on. There is a [great tutorial}(http://library.linode.com/databases/mongodb/ubuntu-10.04-lucid)
+ on how to install and configure MongoDB for Linux on Linode's website.
 
 ## Running The Application
 
@@ -52,3 +53,6 @@ server. For example:
 
     cd ~/webapps/what-if/whatif
     python manage.py runserver 0.0.0.0:8000
+
+Now you should be good to go. Now you'll want to head into the admin area and add some 
+games, tokens and questions. Now get to it!
