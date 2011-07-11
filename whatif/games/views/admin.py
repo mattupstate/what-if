@@ -5,43 +5,48 @@ from django.template import RequestContext
 from django.utils import simplejson
 from whatif.games.documents import Game, Token, Question, TokenModifier
 
+# encapsulated template referrence
 def _template(name):
     return 'admin/%s.html' % name
 
+# util method for easy http responses
 def _respond(template, context, request):
     return render_to_response(_template(template), 
                 _with_game_form(context), 
                 context_instance=RequestContext(request))
-
+    
+# util to add the 'New Game' form to the context which exists on all admin pages
 def _with_game_form(context):
     context['game_form'] = Game.GameForm()
     return context
 
+# util method for retrieving a game and raising a 404 if its not found
 def _get_game_or_404(game_id):
     try:
         return Game.objects.with_id(game_id)
     except:
         raise Http404
     
+# util method for retrieving a token and raising a 404 if its not found
 def _get_token_or_404(token_id):
     try:
         return Token.objects.with_id(token_id)
     except:
         raise Http404
     
+# util method for retrieving a question and raising a 404 if its not found
 def _get_question_or_404(question_id):
     try:
         return Question.objects.with_id(question_id)
     except:
         raise Http404
 
-def _form_error(message='Form Error'):
-    return HttpResponse(simplejson.dumps({ 'error': message }), mimetype='application/json')
-
+# Admin index page.
 @login_required
 def admin_index(request):
     return _respond('index', { "games": Game.objects, }, request)
 
+# POST endpoint for adding a new game. We only need the title to get started
 @login_required
 def new_game(request):
     if request.method == 'POST':
@@ -53,6 +58,7 @@ def new_game(request):
     else:
         return HttpResponseRedirect('/admin/')
 
+# Edit game page
 @login_required
 def edit_game(request, game_id):
     game = _get_game_or_404(game_id)
@@ -62,6 +68,7 @@ def edit_game(request, game_id):
     }
     return _respond('edit-game', context, request)
 
+# POST endpoint for adding a token to a game
 @login_required
 def add_token(request, game_id):
     game = _get_game_or_404(game_id)
@@ -76,6 +83,7 @@ def add_token(request, game_id):
     game.save()
     return HttpResponseRedirect('/admin/%s/edit/' % str(game.id))
 
+# Endpoint for removing a token form a game
 @login_required
 def remove_token(request, game_id, token_id):
     game = _get_game_or_404(game_id)
@@ -91,6 +99,7 @@ def remove_token(request, game_id, token_id):
     game.save()
     return HttpResponseRedirect('/admin/%s/edit/' % str(game.id))
 
+# POST endpoint for changing the value of a token modifier
 @login_required
 def update_modifier(request, game_id, question_id):
     game = _get_game_or_404(game_id)
@@ -108,6 +117,7 @@ def update_modifier(request, game_id, question_id):
     question.save()
     return HttpResponseRedirect('/admin/%s/edit/' % str(game.id))
 
+# Endpoint for deleting an entire game
 @login_required
 def delete_game(request, game_id):
     game = _get_game_or_404(game_id)
@@ -118,6 +128,7 @@ def delete_game(request, game_id):
     game.delete()
     return HttpResponseRedirect('/admin/')
 
+# POST endpoint for adding a question to a game
 @login_required
 def add_question(request, game_id):
     game = _get_game_or_404(game_id)
@@ -132,6 +143,7 @@ def add_question(request, game_id):
     game.save()
     return HttpResponseRedirect('/admin/%s/edit/' % str(game.id))
     
+# Endpoint for removing a question from a game
 @login_required
 def remove_question(request, game_id, question_id):
     game = _get_game_or_404(game_id)

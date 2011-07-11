@@ -1,14 +1,18 @@
 from django.conf.urls.defaults import patterns, url
 from django.contrib.auth.views import login, logout
 from whatif.games.views.admin import (admin_index, new_game, edit_game, remove_question, delete_game, 
-                                             add_token, remove_token, add_question, update_modifier)
+                                      add_token, remove_token, add_question, update_modifier)
 from whatif.games.views.public import (home, view_game, play_game, answer_question)
 
 urlpatterns = patterns('',
+                       
+    # PUBLIC URLS
     url('^$', home, name='home'),
     url('^game/(\w+)/$', view_game, name='view-game'),
     url('^game/(\w+)/play/$', play_game, name='play-game'),
     url('^instance/(\w+)/respond/$', answer_question, name='answer-question'),
+    
+    # ADMIN URLS
     url('^admin/$', admin_index, name='admin'),
     url('^admin/login/$', login, {'template_name': 'admin/login.html'}, name='log-in'),
     url('^admin/logout/$', logout, {'next_page': '/'}, name='log-out'),

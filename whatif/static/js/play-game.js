@@ -1,10 +1,11 @@
-var instanceId;
-var csrfToken;
-var questionIndex = -1;
-var currentQuestion;
-var questions;
-var widthMod = 5;
+var instanceId; // Game instance ID
+var csrfToken; // CSRF token for when submitting ia ajax
+var questionIndex = -1; // Current question index
+var currentQuestion; // Current question node
+var questions; // All question nodes
+var widthMod = 5; // Modifier for vehicle width can be used to give the token bars the appearance of more movement
 
+// Update the token bars based on the answer given to the question
 function updateTokens(questionId, response) {
   for(var i = 0; i < gameData.questions.length; i++) {
     var value = gameData.questions[i];
@@ -23,6 +24,7 @@ function updateTokens(questionId, response) {
   }
 }
 
+// Go to the next question
 function nextQuestion() {
   questionIndex++
   if(questionIndex < questions.length) {
@@ -32,6 +34,7 @@ function nextQuestion() {
   }
 }
 
+// Go to the specified question index
 function gotoQuestion(index) {
   if(currentQuestion) {
     currentQuestion.toggle();
@@ -40,14 +43,19 @@ function gotoQuestion(index) {
   currentQuestion.fadeToggle();
 }
 
+
 $(document).ready(function(){
+  // Get some values form the HTML
   instanceId = $('#instance-id').text();
   csrfToken = $('#csrf-token').text();
   questions = $('#game-questions').children();
   
+  // Set positive buttons with a response value of 1 (YES)
   $('.positive').data({response:1});
+  // Set negative buttons with a response value of 0 (NO)
   $('.negative').data({response:0});
   
+  // Set all answer buttons to POST to the respond endpoint and go to the next question after a response
   $('.answer-button').click(function(event){
     var questionId = $(this).parent().attr('id');
     var responseValue = $(this).data().response;
@@ -66,5 +74,6 @@ $(document).ready(function(){
       'json');
   });
   
+  // Go to the first question
   nextQuestion();
 });
