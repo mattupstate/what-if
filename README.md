@@ -31,6 +31,14 @@ the applicaiton will run on. There is a [great tutorial}(http://library.linode.c
 
 ## Running The Application
 
+If you haven't already, clone the project repository into a convenient folder on your
+computer or server. For example:
+
+    $ cd ~/
+    $ mkdir webapps
+    $ cd webapps
+    $ git clone git@github.com:mattupstate/what-if.git
+
 Startup MongoDB if you haven't already by calling the mongod command. For example:
 
     $ sudo /opt/monogodb/bin/mongod
