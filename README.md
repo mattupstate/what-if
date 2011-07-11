@@ -67,5 +67,6 @@ server. For example:
     cd ~/webapps/what-if/whatif
     python manage.py runserver 0.0.0.0:8000
 
-Now you should be good to go. Now you'll want to head into the admin area and add some 
-games, tokens and questions. Now get to it!
+Now you should be good to go. If you're running the application on your local machine
+navigate to <http://127.0.0.1:8000>. You'll want to head into the admin area and add 
+some games, tokens and questions. Now get to it!
