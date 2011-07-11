@@ -26,9 +26,8 @@ class TokenModifier(EmbeddedDocument):
     
     # Probably not the best thing to do, but all modifiers can be set to a value between -10 and 10
     def create_options(self, selectedValue):
-        values = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10]
         result = []
-        for value in values:
+        for value in range(10, -10, -1):
             selected = 'selected="selected"' if value == selectedValue else ''
             result.append('<option value="%d" %s>%d</option>' % (value, selected, value))
         return ''.join(result)
