@@ -1,0 +1,14 @@
+{% extends "default.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Select a game to play...</h2>
+{% for game in games %}
+{% if game.questions|length > 0 %}
+<div class="game-item">
+  <p class="game-title"><a href="/game/{{ game.id }}/play/">{{ game.title }}</a> ({{ game.questions|length }} Questions)</p>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}

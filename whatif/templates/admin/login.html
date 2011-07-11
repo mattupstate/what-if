@@ -1,0 +1,26 @@
+{% extends "default.html" %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<form action="" method="post">
+  {% csrf_token %}
+  <fieldset>
+    <legend>Login</legend>
+    {{ form.non_field_errors }}
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+    {% for field in form.visible_fields %}
+    <p>
+      {{ field.errors }}
+      {{ field.label_tag }}<br/>
+      {{ field }}
+    </p>
+    {% endfor %}
+    <input type="hidden" id="next" name="next" value="{{ next }}" />
+    <p><button type="submit"/>Login</button></p>
+  </fieldset>
+</form>
+{% endblock %}

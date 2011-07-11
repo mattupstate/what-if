@@ -1,0 +1,18 @@
+{% extends "default.html" %}
+
+{% block title %}Results for {{ game.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ game.title }} [<a href="/game/{{ game.id }}/play/">Play</a>]</h2>
+<h3>Average values after {{ total }} completed games:</h3>
+<div id="token-view" class="span-24">
+{% for average in averages %}
+  <div class="token-container">
+    <div class="token-label">{{ average.token.text }}</div>
+    <div class="token-lane"><div id="{{ average.token.id }}" class="vehicle" style="width:{{ average.width }}px">
+      
+    </div></div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

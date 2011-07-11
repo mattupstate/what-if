@@ -1,0 +1,11 @@
+{% extends "admin.html" %}
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+  <ul id="game-list">
+  {% for game in games %}
+    <li><a href="/admin/{{ game.id }}/edit/">{{ game.title }}</a></li>
+  {% endfor %}
+  </ul>
+{% endblock %}

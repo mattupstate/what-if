@@ -1,0 +1,47 @@
+{% extends "default.html" %}
+
+{% block title %}Playing: {{ instance.game.title }}{% endblock %}
+
+{% block content %}
+<div style="display:none" id="instance-id">{{ instance.id }}</div>
+<div style="display:none" id="csrf-token">{{ csrf_token }}</div>
+<p><a href="/">Back to Games</a></p>
+<h2>Now Playing: <strong>{{ instance.game.title }}</strong></h2>
+
+<div id="game-questions" class="span-24">
+{% for question in instance.game.questions %}
+  <div id="{{ question.id }}" class="game-question">
+    What if...<br/>
+    {{ question.text }}<br/>
+    <button class="positive answer-button">Yes</button> 
+    <button class="negative answer-button">No</button>
+  </div>
+{% endfor %}
+  <div class="game-question">
+    <h3>Game Complete</h3>
+    <p>
+      <a href="/game/{{ instance.game.id }}/">View Results</a>, 
+      <a href="/game/{{ instance.game.id }}/play/">Play Again</a>, or 
+      <a href="/">Play Another Game</a></p>
+  </div>
+</div>
+
+
+<div id="token-view" class="span-24">
+{% for token in instance.game.tokens %}
+  <div class="token-container">
+    <div class="token-label">{{ token.text }}</div>
+    <div class="token-lane"><div id="{{ token.id }}" class="vehicle"></div></div>
+  </div>
+{% endfor %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var gameData = {{ instance.game.as_dict|safe }};
+  console.log(gameData);
+</script>
+<script src="{{ STATIC_URL }}js/play-game.js"></script>
+{% endblock %}

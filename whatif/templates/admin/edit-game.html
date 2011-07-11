@@ -1,0 +1,58 @@
+{% extends "admin.html" %}
+
+{% block title %}Edit Game{% endblock %}
+
+{% block content %}
+  <h2>Editing: {{ game.title }} [<a href="/admin/{{ game.id }}/delete/">delete</a>]</h2>
+  <div style="overflow:auto">
+    <div class="span-11">
+      <h3>Tokens</h3>
+      <form action="/admin/{{ game.id }}/addtoken/" method="POST">
+        {% csrf_token %}
+        <input type="text" id="token-text" name="token_text" class="text" value="Add a token..."/>
+        <button type="submit">Add</button>
+      </form>
+      <ul id="token-list">
+      {% for token in game.tokens %}
+        <li id="token-{{ token.id }}"><span class="token-text">{{ token.text }} [<a href="/admin/{{ game.id }}/rmtoken/{{ token.id }}/">remove</a>]</span></li>
+      {% endfor %}
+      </ul>
+    </div>
+    <div class="span-11 last">
+      <h3>Questions</h3>
+      <form action="/admin/{{ game.id }}/addquestion/" method="POST">
+        {% csrf_token %}
+        <input type="text" id="question-text" name="question_text" class="text" value="Add a question..."/>
+        <button type="submit">Add</button>
+      </form>
+      <div id="question-list">
+      {% for question in game.questions %}
+        <div id="question-{{ question.id }}" class="question-item">
+          <span class="question-title">{{ question.text }}</strong> [<a href="/admin/{{ game.id }}/rmquestion/{{ question.id }}/">remove</a>]</span>
+          <ul id="modifier-list">
+          {% for modifier in question.token_modifiers %}
+          <li>{{ modifier.token.text }}
+            <form class="inline-form" action="/admin/{{ game.id }}/q/{{ question.id }}/update/" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="token_id" value="{{ modifier.token.id }}"/> 
+              Yes: <select name="yes_modifier_value" class="modifier-select">
+                {{ modifier.get_yes_options|safe }}
+              </select>
+              No: <select name="no_modifier_value" class="modifier-select">
+                {{ modifier.get_no_options|safe }}
+              </select>
+            </form>
+          </li>
+          {% endfor %}
+          </ul>    
+        </div>  
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div id="game-id" style="display:none">{{ game.id }}</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/admin-game.js"></script>
+{% endblock %}
