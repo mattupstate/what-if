@@ -23,6 +23,7 @@
         <ul id="mainnav">
           <li>What If...</li>
           {% if user.is_authenticated %}
+          <li>{{ user.email }}</li>
           <li><a href="/admin/">Admin</a></li>
           <li><a href="/admin/logout/">Logout</a></li>
           {% else %}
